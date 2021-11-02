@@ -31,13 +31,13 @@ public class OtpController {
 
 
     @PostMapping("/user/generateOtp")
-    public String generateOtp(@RequestBody UserAuthentication details) {
+    public String createOTP(@RequestBody UserAuthentication details) {
         user=details;
         if(!CollectionUtils.isEmpty(this.otpRepo.findByMailAddress(user.getMailAddress()))){
             return "You already have an account please Login";
         }
         else {
-            int otp = otpService.generateOTP(user.getMailAddress());
+            int otp = otpService.createOTP(user.getMailAddress());
             this.emailService.sendOtpMail(user.getMailAddress(), otp);
             return "Otp Sent";
         }
@@ -48,10 +48,10 @@ public class OtpController {
     {
         userLogin=details;
         if(CollectionUtils.isEmpty(this.otpRepo.findByMailAddress(userLogin.getMailAddress()))){
-            return "seems like you dont have any account";
+            return "seems like you don't have any account";
         }
         else {
-            int forgotPassOtp = otpService.generateForgotOtp(userLogin.getMailAddress());
+            int forgotPassOtp = otpService.createOTP(userLogin.getMailAddress());
             this.emailService.sendOtpMail(userLogin.getMailAddress(), forgotPassOtp);
             return "Otp Sent";
         }

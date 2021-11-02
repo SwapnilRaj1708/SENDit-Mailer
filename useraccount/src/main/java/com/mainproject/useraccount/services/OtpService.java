@@ -38,18 +38,11 @@ public class OtpService{
         otpCache.invalidate(name);
     }
 
-
-    public int generateOTP(String mailAddress) {
+    public int createOTP(String mailAddress) {
         Random random = new Random();
         int otp = 100000 + random.nextInt(900000);
         otpCache.put(mailAddress, otp);
         return otp;
     }
 
-    public int generateForgotOtp(String mailAddress) {
-        Random random = new Random();
-        int otp = 100000 + random.nextInt(900000);
-        otpCache.put(mailAddress, otp);
-        return otp;
-    }
 }
